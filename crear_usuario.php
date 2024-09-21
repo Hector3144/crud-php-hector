@@ -12,8 +12,8 @@ if ($conn->connect_error) {
 
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
-$tipoDocumento = $_POST['tipoDocumento'];
-$numeroDocumento = $_POST['numeroDocumento'];
+$tipoDocumento = $_POST['tipo_documento'];
+$numeroDocumento = $_POST['numero_documento'];
 $action = $_POST['action'];
 
 if ($action == 'create') {

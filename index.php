@@ -46,7 +46,7 @@ $usuarios = $sql->fetchAll();
         <button type="submit">Validar</button>
     </form>
 
-    <script src="validador.js"></script>
+    
 
 
 
@@ -131,14 +131,12 @@ $usuarios = $sql->fetchAll();
                         <input type="text" name="nombre" id="nombre" class="mt-1 block w-full">
                     </div>
                     <div class="mb-4">
-                        <label for="tipoDocumento" class="block text-sm font-medium text-gray-700">Tipo de
-                            Documento</label>
-                        <input type="text" name="tipoDocumento" id="tipoDocumento" class="mt-1 block w-full">
+                    <label for="tipo_documento" class="block text-sm font-medium text-gray-700">Tipo de Documento</label>
+                    <input type="text" name="tipo_documento" id="tipo_documento" class="mt-1 block w-full">
                     </div>
                     <div class="mb-4">
-                        <label for="numeroDocumento" class="block text-sm font-medium text-gray-700">Número de
-                            Documento</label>
-                        <input type="number" name="numeroDocumento" id="numeroDocumento" class="mt-1 block w-full">
+                        <label for="numero_documento" class="block text-sm font-medium text-gray-700">Número de Documento</label>
+                        <input type="number" name="numero_documento" id="numero_documento" class="mt-1 block w-full">
                     </div>
                     <div class="flex justify-end">
                         <button type="button" class="mr-4" onclick="closeModal()">Cancelar</button>
@@ -163,47 +161,7 @@ $usuarios = $sql->fetchAll();
         </div>
     </div>
 
-    <script>
-        // funciones modal crear y editar
-        function openModal(usuario = null) {
-            if (usuario) {
-                document.getElementById('modalTitle').innerText = 'Editar Usuario';
-                document.getElementById('userId').value = usuario.id;
-                document.getElementById('nombre').value = usuario.nombre;
-                document.getElementById('tipoDocumento').value = usuario.tipoDocumento;
-                document.getElementById('numeroDocumento').value = usuario.numeroDocumento;
-                document.getElementById('action').value = 'update';
-            } else {
-                document.getElementById('modalTitle').innerText = 'Crear Usuario';
-                document.getElementById('editForm').reset();
-                document.getElementById('userId').value = '';
-                document.getElementById('action').value = 'create';
-            }
-            document.getElementById('modalOverlay').classList.remove('hidden');
-            document.getElementById('editModal').classList.remove('hidden');
-        }
-        function closeModal() {
-            document.getElementById('modalOverlay').classList.add('hidden');
-            document.getElementById('editModal').classList.add('hidden');
-        }
-
-        function openDeleteModal(usuario) {
-            document.getElementById('userId').value = usuario.id;
-            document.getElementById('action').value = 'delete';
-            document.getElementById('modalOverlay').classList.remove('hidden');
-            document.getElementById('deleteModal').classList.remove('hidden');
-        }
-        // funciones de borrar modal
-
-        function closeDeleteModal() {
-            document.getElementById('modalOverlay').classList.add('hidden');
-            document.getElementById('deleteModal').classList.add('hidden');
-        }
-
-        function deleteTable() {
-            document.getElementById('editForm').submit();
-        }
-    </script>
+    <script src="funciones.js"></script>
 
 
 </body>
