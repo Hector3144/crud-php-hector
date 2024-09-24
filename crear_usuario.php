@@ -1,8 +1,8 @@
 <?php
 // enlace con servidor xd
 $servername = "localhost";
-$username = "admin";
-$password = "admin";
+$username = "naomi";
+$password = "12345";
 $dbname = "dam";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -14,17 +14,26 @@ if ($conn->connect_error) {
 // almacenar datos en variables
 $id = $_POST['id'];
 $nombre = $_POST['nombre'];
-$tipoDocumento = $_POST['tipo_documento'];
-$numeroDocumento = $_POST['numero_documento'];
+$tipoDocumento = $_POST['tipoDocumento'];
+$numeroDocumento = $_POST['numeroDocumento'];
 $accion = $_POST['accion'];
+
+// Verificar los datos recibidos
+echo "ID: $id<br>";
+echo "Nombre: $nombre<br>";
+echo "Tipo Documento: $tipoDocumento<br>";
+echo "Número Documento: $numeroDocumento<br>";
+echo "Acción: $accion<br>";
 
 // acciones dependiendo lo que el usuario vaya a hacer
 if ($accion == 'crear') {
-    $sql = "INSERT INTO usuarios (nombre, tipoDocumento, numeroDocumento) VALUES ('$nombre', '$tipoDocumento', '$numeroDocumento')";
+    $sql = "INSERT INTO usuarios (nombre, id_tipo_documento, numero_documento) VALUES ('$nombre', '$tipoDocumento', '$numeroDocumento')";
 } elseif ($accion == 'editar') {
-    $sql = "UPDATE usuarios SET nombre='$nombre', tipoDocumento='$tipoDocumento', numeroDocumento='$numeroDocumento' WHERE id=$id";
+    $sql = "UPDATE usuarios SET nombre='$nombre', id_tipo_documento='$tipoDocumento', numero_documento='$numeroDocumento' WHERE id_usuario=$id";
 } elseif ($accion == 'eliminar') {
-    $sql = "DELETE FROM usuarios WHERE id=$id";
+    $sql = "DELETE FROM usuarios WHERE id_usuario=$id";
+} else {
+    die("Acción no válida: " . $accion);
 }
 
 if ($conn->query($sql) === TRUE) {

@@ -5,11 +5,15 @@ $conexionDam = new Conexion();
 $conexion = $conexionDam->conectar();
 
 $sql = $conexion->prepare("
-        SELECT * FROM usuarios
+    SELECT * FROM usuarios  INNER JOIN tipo_documentos ON usuarios.id_tipo_documento = tipo_documentos.id_tipo_documento
     ");
 $sql->execute();
 $usuarios = $sql->fetchAll();
-
+$sqlTiposDocumentos = $conexion->prepare("
+    SELECT * FROM tipo_documentos
+    ");
+$sqlTiposDocumentos->execute();
+$tipo_documentos = $sqlTiposDocumentos->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -35,12 +39,12 @@ $usuarios = $sql->fetchAll();
     <form action="validar.php" method="post">
 
         <label for="">Tipos de Documentos</label>
-        <select name="tipoDocumento" id="tipoDocumento">
+        <select name="tipo_documento" id="tipo_documento">
             <option value="0">Seleccione un tipo de documento</option>
             <?php
             foreach ($usuarios as $usuario) {
                 ?>
-                <option value=""><?= $usuario['nombre'] ?></option>
+                <option value=""><?= $usuario['glosa'] ?></option>
                 <?php
             }
             ?>
@@ -48,11 +52,6 @@ $usuarios = $sql->fetchAll();
 
         <button type="submit">Validar</button>
     </form>
-
-
-
-
-
 
     <!-- inicio de tabla -->
     <section class="bg-white py-20 lg:py-[120px]">
@@ -65,8 +64,6 @@ $usuarios = $sql->fetchAll();
                                 Usuario</button>
                         </div>
                         <table class="table-auto w-full">
-
-
                             <thead>
                                 <tr class="bg-primary text-center">
                                     <th
@@ -79,7 +76,7 @@ $usuarios = $sql->fetchAll();
                                     </th>
                                     <th
                                         class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
-                                        Numero de Documento
+                                        Número de Documento
                                     </th>
                                     <th
                                         class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
@@ -98,26 +95,26 @@ $usuarios = $sql->fetchAll();
                                         </td>
                                         <td
                                             class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <?= $usuario['tipoDocumento'] ?>
+                                            <?= $usuario['glosa'] ?>
                                         </td>
                                         <td
                                             class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <?= $usuario['numeroDocumento'] ?>
+                                            <?= $usuario['numero_documento'] ?>
                                         </td>
-
                                         <td
-                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-white border-b border-r border-[#E8E8E8]">
+                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
                                             <button onclick='abrirModal(<?= json_encode($usuario) ?>)'
                                                 class="bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
                                             <button onclick='abrirModalEliminar(<?= json_encode($usuario) ?>)'
                                                 class="bg-red-500 text-white px-4 py-2 rounded">Borrar</button>
                                         </td>
-                                        <?php
+                                    </tr>
+                                    <?php
                                 }
                                 ?>
     </section>
     <!-- fin de tabla  -->
-    <!-- modal de difuminado oscuro en la parte de atras xd -->
+    <!-- modal de difuminado oscuro en la parte de atrás -->
     <div id="difuminado" class="hidden fixed inset-0 bg-black bg-opacity-50"></div>
 
     <!-- Modal crear y editar-->
@@ -133,18 +130,28 @@ $usuarios = $sql->fetchAll();
                         <input type="text" name="nombre" id="nombre" class="mt-1 block w-full">
                     </div>
                     <div class="mb-4">
-                        <label for="tipo_documento" class="block text-sm font-medium text-gray-700">Tipo de
+                        <label for="tipoDocumento" class="block text-sm font-medium text-gray-700">Tipo de
                             Documento</label>
-                        <input type="text" name="tipo_documento" id="tipo_documento" class="mt-1 block w-full">
+                        <select name="tipoDocumento" id="tipoDocumento" class="mt-1 block w-full">
+                            <option value="0">Seleccione un Tipo de Documento</option>
+                            <?php
+                            foreach ($tipo_documentos as $tipo_documento) {
+                                ?>
+                                <option value="<?= $tipo_documento['id_tipo_documento'] ?>"><?= $tipo_documento['glosa'] ?>
+                                </option>
+                                <?php
+                            }
+                            ?>
+                        </select>
                     </div>
                     <div class="mb-4">
-                        <label for="numero_documento" class="block text-sm font-medium text-gray-700">Número de
+                        <label for="numeroDocumento" class="block text-sm font-medium text-gray-700">Número de
                             Documento</label>
-                        <input type="number" name="numero_documento" id="numero_documento" class="mt-1 block w-full">
+                        <input type="number" name="numeroDocumento" id="numeroDocumento" class="mt-1 block w-full">
                     </div>
                     <div class="flex justify-end">
                         <button type="button" class="mr-4" onclick="cerrarModal()">Cancelar</button>
-                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+                        <button id type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
                     </div>
                 </form>
             </div>
@@ -166,7 +173,6 @@ $usuarios = $sql->fetchAll();
     </div>
 
     <script src="funciones.js"></script>
-
 
 </body>
 

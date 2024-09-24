@@ -5,8 +5,8 @@
 
         private $host = 'localhost';
         private $dbname = 'dam';
-        private $usuario = 'admin';
-        private $password = 'admin';
+        private $usuario = 'naomi';
+        private $password = '12345';
         private $atributos = array(
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, 
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC);
