@@ -36,6 +36,8 @@ if ($accion == 'crear') {
     die("Acción no válida: " . $accion);
 }
 
+
+// se ejecuta la consulta
 if ($conn->query($sql) === TRUE) {
     echo "Acción realizada exitosamente";
 } else {
