@@ -63,55 +63,65 @@ $tipo_documentos = $sqlTiposDocumentos->fetchAll();
                             <button onclick="abrirModal()" class="bg-green-500 text-white px-4 py-2 rounded">Crear
                                 Usuario</button>
                         </div>
-                        <table class="table-auto w-full">
-                            <thead>
-                                <tr class="bg-primary text-center">
-                                    <th
-                                        class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
-                                        Nombre
-                                    </th>
-                                    <th
-                                        class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
-                                        Tipo de Documento
-                                    </th>
-                                    <th
-                                        class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
-                                        Número de Documento
-                                    </th>
-                                    <th
-                                        class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
-                                        Acciones
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($usuarios as $usuario) {
-                                    ?>
-                                    <tr>
-                                        <td
-                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <?= $usuario['nombre'] ?>
-                                        </td>
-                                        <td
-                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <?= $usuario['glosa'] ?>
-                                        </td>
-                                        <td
-                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <?= $usuario['numero_documento'] ?>
-                                        </td>
-                                        <td
-                                            class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
-                                            <button onclick='abrirModal(<?= json_encode($usuario) ?>)'
-                                                class="bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
-                                            <button onclick='abrirModalEliminar(<?= json_encode($usuario) ?>)'
-                                                class="bg-red-500 text-white px-4 py-2 rounded">Borrar</button>
-                                        </td>
+                        <div class="table-responsive">
+
+                            <table class="table-auto w-full">
+                            <thead class="thead-dark text-center">
+                                <thead>
+                                    <tr class="bg-primary text-center">
+                                        <th
+                                            class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
+                                            Nombre
+                                        </th>
+                                        <th
+                                            class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
+                                            Tipo de Documento
+                                        </th>
+                                        <th
+                                            class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
+                                            Número de Documento
+                                        </th>
+                                        <th
+                                            class="w-1/6 min-w-[160px] text-lg font-semibold text-white py-4 lg:py-7 px-3 lg:px-4 border-r border-transparent">
+                                            Acciones
+                                        </th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php
-                                }
-                                ?>
+                                    foreach ($usuarios as $usuario) {
+                                        ?>
+                                        <tr>
+                                            <td
+                                                class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
+                                                <?= $usuario['nombre'] ?>
+                                            </td>
+                                            <td
+                                                class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
+                                                <?= $usuario['glosa'] ?>
+                                            </td>
+                                            <td
+                                                class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
+                                                <?= $usuario['numero_documento'] ?>
+                                            </td>
+                                            <td
+                                                class="text-center text-dark font-medium text-base py-5 px-2 bg-[#F3F6FF] border-b border-[#E8E8E8]">
+                                                <button onclick='abrirModal(<?= json_encode($usuario) ?>)'
+                                                    class="bg-blue-500 text-white px-4 py-2 rounded">Editar</button>
+                                                <button onclick='abrirModalEliminar(<?= json_encode($usuario) ?>)'
+                                                    class="bg-red-500 text-white px-4 py-2 rounded">Borrar</button>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    }
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <!-- fin de tabla  -->
     <!-- modal de difuminado oscuro en la parte de atrás -->
@@ -120,7 +130,7 @@ $tipo_documentos = $sqlTiposDocumentos->fetchAll();
     <!-- Modal crear y editar-->
     <div id="abrirModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen">
-            <div class="bg-white p-6 rounded shadow-lg">
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto">
                 <h2 id="tituloModal" class="text-xl mb-4"></h2>
                 <form id="formularioModal" method="POST" action="crear_usuario.php">
                     <input type="hidden" name="id" id="idUsuario">
@@ -161,7 +171,7 @@ $tipo_documentos = $sqlTiposDocumentos->fetchAll();
     <!-- Modal para borrar -->
     <div id="deleteModal" class="hidden fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen">
-            <div class="bg-white p-6 rounded shadow-lg">
+            <div class="bg-white p-6 rounded shadow-lg w-full max-w-md mx-auto">
                 <h2 class="text-xl mb-4">¿Seguro que quiere borrar la tabla?</h2>
                 <div class="flex justify-end">
                     <button type="button" class="mr-4" onclick="cerrarModalEliminar()">Cancelar</button>
